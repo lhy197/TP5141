@@ -1,0 +1,52 @@
+#### 更改后的数据
+#<FilesMatch "\.(bak|inc|lib|sh|tpl|lbi|dwt)$">
+#    order deny,allow
+#    deny from all
+#</FilesMatch>
+#
+#Options -Indexes
+#RewriteEngine On
+##RewriteBase /
+#
+#<IfModule mod_headers.c>
+#    Header set Access-Control-Allow-Origin "*"
+#    #Header set Access-Control-Allow-Origin "http://sh.babyzb.com"
+#</IfModule>
+#
+##### m 模块  c 控制器  o 操作
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/id-([0-9]+)$  index\.php\?m=$1&c=$2&o=$3&id=$4 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([0-9]+)$  index\.php\?m=$1&c=$2&o=$3&id=$4 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/$  index\.php\?m=$1&c=$2&o=$3 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)$  index\.php\?m=$1&c=$2&o=$3 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)/$  index\.php\?m=$1&c=$2 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/([a-zA-Z0-9]+)$  index\.php\?m=$1&c=$2 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)/$  index\.php\?m=$1 [QSA,L]
+#RewriteRule ^([a-zA-Z0-9]+)$  index\.php\?m=$1 [QSA,L]
+#
+#ErrorDocument 404 /404.php
+#
+#order Deny,Allow
+#Allow from all
+
+## 原来的数据 -----------------------------------------------------------------------------
+#<IfModule mod_rewrite.c>
+#  Options +FollowSymlinks -Multiviews
+#  RewriteEngine On
+#
+#  RewriteCond %{REQUEST_FILENAME} !-d
+#  RewriteCond %{REQUEST_FILENAME} !-f
+#  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+#</IfModule>
+
+### 更改后的数据 --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks -Multiviews
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  #RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]  #错误的
+  RewriteRule ^(.*)$ index.php?$1 [QSA,PT,L]  #改后对的
+  #RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]   #改后另一个对的
+</IfModule>
